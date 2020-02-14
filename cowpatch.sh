@@ -88,4 +88,13 @@ done
 
 }
 
+gotcmd=0
+while getopts ":p:i:RNEI:S:" opt ; do
+case "$opt" in
+I) find "$OPTARG" -path "$OPTARG/*" -prune -exec sh -c 'ln -sf "$@" .' sh {} + ; gotcmd=1 ;;
+S) cowp "$OPTARG" ; gotcmd=1 ;;
+esac
+done
+test "$gotcmd" -eq 0 || exit 0
+
 cowpatch "$@" | patch "$@"
