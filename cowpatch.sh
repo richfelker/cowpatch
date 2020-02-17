@@ -70,9 +70,11 @@ echo "$l"
 ;;
 @@*)
 echo "$l"
-IFS=" ," read -r junk junk i junk j junk <<EOF
+IFS=" " read -r junk i j junk <<EOF
 $l
 EOF
+case "$i" in *,*) i=${i#*,} ;; *) i=1 ;; esac
+case "$j" in *,*) j=${j#*,} ;; *) j=1 ;; esac
 while test $i -gt 0 || test $j -gt 0 ; do
 IFS= read -r l
 echo "$l"
